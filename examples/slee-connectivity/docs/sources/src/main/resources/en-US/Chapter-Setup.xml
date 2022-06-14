@@ -1,0 +1,95 @@
+<?xml version='1.0'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "JAIN_SLEE_Example_User_Guide.ent">
+%BOOK_ENTITIES;
+]>
+
+<chapter id="setup">
+
+	<title>Setup</title>
+
+	<section id="preinstall_requirements_and_prerequisites">
+		<title>Pre-Install Requirements and Prerequisites</title>
+		<para>Ensure that the following requirements have been met before continuing with the install.</para>
+		<section id="hardware_requirements">
+			<title>Hardware Requirements</title>
+			<para>The Example doesn't change the &THIS.PLATFORM; JAIN SLEE Hardware Requirements, refer to &THIS.PLATFORM; JAIN SLEE documentation for more information.</para>
+		</section>
+		<section id="software_prerequisites">
+			<title>Software Prerequisites</title>
+			<para>The Example requires &THIS.PLATFORM; JAIN SLEE properly set. In case of using separated JVMs to host the JAva EE and JAIN SLEE applications, the &THIS.PLATFORM; JAIN SLEE Remote SLEE Connection Tool must be deployed in the Java EE server, and properly configured, to be able to interact with the remote JAIN SLEE container.</para>
+		</section>
+	</section>	
+	
+	<section id="source_code">
+		<title>&THIS.PLATFORM; JAIN SLEE &THIS.EXAMPLE; Example Source Code</title>
+
+		
+		<section id="release_source_building">
+			<title>Release Source Code Building</title>
+			<procedure>
+				<step>
+				    <title>Downloading the source code</title>
+				    <important>
+				    	<para>Git is used to manage Restcomm JAIN SLEE source code. Instructions for downloading, installing and using Git can be found at <ulink url="http://git-scm.com/" /></para>
+				    </important>
+				    <para>Use Git to checkout a specific release source, the Git repository URL is https://github.com/RestComm/jain-slee.javaee/ , then switch to the specific release version, lets consider &THIS.VERSION;.</para>
+				    <programlisting>
+				    [usr]$ git clone https://github.com/RestComm/jain-slee.javaee restcomm-jain-slee-javaee
+				    [usr]$ cd restcomm-jain-slee-javaee
+				    [usr]$ git checkout tags/&THIS.VERSION;
+					</programlisting>
+  				</step>
+				<step>
+				    <title>Building the source code</title>
+				    <important>
+				    	<para>Maven 2.0.9 (or higher) is used to build the release. Instructions for using Maven2, including install, can be found at <ulink url="http://maven.apache.org" /></para>
+				    </important>
+				    <para>Use Ant to build the binary.</para>
+				    <programlisting>
+					[usr]$ cd examples/slee-connectivity
+					[usr]$ mvn install
+				    </programlisting>
+				    <para>Once the process finishes you should have the JAIN SLEE <literal>deployable-unit</literal> jar file in the <filename>slee/du/target</filename> directory, and JMX Client in the javaee/beans/target directory.</para>
+  				</step>
+			</procedure>      
+		</section>	
+		
+		<section id="master_source_building">
+			<title>Development Master Source Building</title>
+			<para>Similar process as for <xref linkend="release_source_building"/>, the only change is the Git reference should be the <literal>master</literal>. The <literal>git checkout tags/&THIS.VERSION;</literal> command should not be performed. If already performed, the following should be used in order to switch back to the master:</para>
+		    <programlisting>
+		    [usr]$ git checkout master
+			</programlisting>
+		</section>	
+		
+	</section>
+	
+	<section id="install">
+		<title>Installing &THIS.PLATFORM; JAIN SLEE &THIS.EXAMPLE; Example</title>
+		<para>To install SleeConnectivity extension with Events module just execute <literal>ant deploy</literal>, and the JAIN SLEE deployable unit to the deploy directory of the JAIN SLEE container.</para>
+	</section>
+	
+	<section id="uninstall">
+		<title>Uninstalling &THIS.PLATFORM; JAIN SLEE &THIS.EXAMPLE; Example</title>
+		<para>To uninstall simply execute <literal>ant undeploy</literal> and delete JAIN SLEE deployable unit jar copied in the install procedures.</para>
+	</section>	
+			
+	<section id="remote-javaee-configuration">
+		<title>Configuring the Java EE server to interact with a remote JAIN SLEE</title>
+		<para>SleeConnectivity extension has two parameters which you can configure throw subsystem configuration in standalone.xml.</para>
+
+		<programlisting>
+			<![CDATA[
+			<subsystem xmlns="urn:restcomm:slee-connectivity:1.0">
+				<remote-rmi-address>127.0.0.1</remote-rmi-address>
+				<remote-rmi-port>5555</remote-rmi-port>
+			</subsystem>
+			]]>
+		</programlisting>
+
+		<para>With remote-rmi-address and remote-rmi-port parameters you can configure IP/Hostname of Remote WildFly with JAIN SLEE container and port of Remote RMI Registry.</para>
+
+	</section>
+</chapter>
+

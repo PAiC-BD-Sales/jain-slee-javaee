@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "JAIN_SLEE_Example_User_Guide.ent">
+%BOOK_ENTITIES;
+]>
+
+<chapter id="running">
+
+	<title>Running the Example</title>
+	
+	<para>To run example, start <literal>WildFly</literal> container and open <literal>JConsole</literal> with creating connection to WildFly process.</para>
+
+	<para>Lookup bean in MBeans tab with name equal to: <literal>org.restcomm.slee:name=SleeConnectivityExample</literal> and invoke operations. Pass distinct argument to operation. If operation is successful, passed value should be shown in &THIS.PLATFORM; JAIN SLEE Console</para>
+</chapter>
+

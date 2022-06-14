@@ -1,0 +1,108 @@
+<?xml version='1.0'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "JAIN_SLEE_Example_User_Guide.ent">
+%BOOK_ENTITIES;
+]>
+
+<chapter id="source_code_overview">
+
+	<title>Source Code Overview</title>
+	<important>
+		<para>
+			To obtain the example's complete source code please refer to
+			<xref linkend="source_code" />.
+		</para>
+	</important>
+	
+	<section id="source_code_overview_sbb">
+		<title>Source Code Overview: Sbb</title>
+		<note>
+			<para>
+				For full descirption of
+				<acronym>XML</acronym>
+				please refer to simpler examples, like sip-wakeup
+			</para>
+		</note>
+		<para><acronym>SBB</acronym> descriptor is very simple. Its only purpose is to define <acronym>SBB</acronym> abstract class and event handler.
+		Abstract class is defined as follows:</para>
+		<programlisting language="XML" role="XML"><![CDATA[
+		<sbb-name>SleeConnectivitySbb</sbb-name>
+		<sbb-vendor>org.restcomm</sbb-vendor>
+		<sbb-version>1.0</sbb-version>
+
+		<sbb-classes>
+			<sbb-abstract-class>
+				<sbb-abstract-class-name>
+					SleeConnectivitySbb
+				</sbb-abstract-class-name>
+			</sbb-abstract-class>
+		</sbb-classes>
+			]]>
+			</programlisting>
+		
+		<para>
+		Handler definition looks as follows:</para>
+		<programlisting language="XML" role="XML"><![CDATA[
+		<event event-direction="Receive" initial-event="True">
+			<event-name>CustomEvent</event-name>
+			<event-type-ref>
+				<event-type-name>org.restcomm.slee.service.connectivity.Event_1</event-type-name>
+				<event-type-vendor>org.restcomm</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+			<initial-event-select variable="ActivityContext" />
+		</event>
+			]]>
+			</programlisting>
+	</section>
+	<section id="source_code_overview_jmx">
+		<title>Source Code Overview: JMX Client</title>
+		<para><acronym>JMX</acronym> Client is defined by <acronym>POJO</acronym> class.</para>
+
+		<para>Client contract is defined by implemented interface class, that is <literal>org.restcomm.example.slee.connection.SleeConnectionTestMBean</literal> </para>
+		<variablelist>
+			<varlistentry>
+				<term>public void fireEvent(String message);</term>
+				<listitem>
+					<para>Fires event using to JAIN SLEE container. The event will contain the specified message parameter.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+
+		<para>Concrete implementation can be found in <literal>org.restcomm.example.slee.connection.SleeConnectionTest</literal> class.</para>
+		<programlisting role="JAVA" language="Java">
+			
+		public void fireEvent(String messagePassed) {
+
+		logger.info("Attempting call to RemoteSleeConnectionService.");
+		try {
+			// get local or remote RMI registry on rmiAddress:rmiPort
+			Registry registry = LocateRegistry.getRegistry(this.rmiAddress, this.rmiPort);
+
+			// get RMI stup throw lookup
+			RemoteSleeConnectionService rmiStub =
+				(RemoteSleeConnectionService) registry.lookup("RemoteSleeConnectionService");
+
+			// create activity handle
+			ExternalActivityHandle handle = rmiStub.createActivityHandle();
+
+			// get event type
+			EventTypeID requestType = rmiStub.getEventTypeID(eventName, eventVendor, eventVersion);
+
+			CustomEvent customEvent = new CustomEvent();
+			customEvent.setMessage(messagePassed);
+			logger.info("The event type is: " + requestType);
+
+			rmiStub.fireEvent(customEvent, requestType, handle, null);
+
+		} catch (Exception e) {
+			logger.error("Exception caught in event fire method!", e);
+
+		}
+	}
+			</programlisting>
+			
+	</section>
+
+</chapter>
+
