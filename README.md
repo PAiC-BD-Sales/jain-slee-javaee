@@ -1,10 +1,13 @@
 # Extended JAIN SLEE JAVAEE
 
-The Extended JAIN SLEE JAVAEE is cloned from JAIN SLEE [https://github.com/RestComm/jain-slee.javaee](https://github.com/RestComm/jain-slee.javaee) from which we have added a set of improvements.
+> The Extended JAIN SLEE JAVAEE is an enhanced version derived from the JAIN SLEE project available at [https://github.com/RestComm/jain-slee.javaee](https://github.com/RestComm/jain-slee.javaee). We've introduced a series of improvements to enhance its capabilities.
 
-## Introduction
-
-Open Source Extended JAIN SLEE allows applications to communicate with legacy communications, providing means to execute statements in asynchronous fashion. statements are executed in the RA runtime resources, freeing the JAIN SLEE Event Router from the burden of having its executors (threads) resources blocked by interactions with Datasources, and results are provided to applications through JAIN SLEE events. The JAIN SLEE application is also completely free from having to manage connection closings.
+## Key Features
+* Empowers applications to communicate with legacy communications systems.
+* Facilitates asynchronous execution of statements within the RA runtime resources.
+* Relieves the JAIN SLEE Event Router from resource-blocking interactions with Datasources.
+* Delivers results to applications through JAIN SLEE events.
+* Eliminates the need for JAIN SLEE applications to manage connection closures, streamlining development and maintenance.
 
 ## Build Extended JAIN SLEE JAVAEE
 
