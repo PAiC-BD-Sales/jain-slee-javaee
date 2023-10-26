@@ -22,7 +22,7 @@ Ensure that the following requirements have been met before continuing with the 
 
 ## What is coming?
 
-For details on our planned features and future direction please refer to PAiChain (https://paic-chain.com/).
+To find information about our planned features and our future roadmap, kindly visit PAiC at https://paicbd.com/.
 
 ## News
 
